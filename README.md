@@ -12,6 +12,7 @@ This simple tool was written in Assembler x86 Win32 API and the Anti-Debugging m
 - Obfuscation
 
 For example see follow code (first case):</br>
+```assembly
 ;NtGlobalFlag - PEB!NtGlobalFlags</br>
 xor eax, eax</br>
 assume fs:nothing</br>
@@ -21,13 +22,14 @@ and eax, 70h</br>
 db 0ebh, 01h</br>
 db 0ffh, 085h, 0C0h</br>
 jne @Detected</br>
-
+```
 The NtGlobalFlag field exists at offset 0x68 in the Process Environment Block</br>
 We look at the individual instructions:</br>
+```assembly
 mov eax, fs:[eax+30h] ; Process Environment Block</br>
 mov al, [eax+68h] ; NtGlobalFlag</br>
 and eax, 70h ; if value of eax is 70h</br>
 db 0ebh, 01h ; means jmp and skip 1 junk byte</br>
 db 0ffh, 085h, 0C0h ; Follows opcode "085h, 0C0h" matches with istruction test eax, eax</br>
-
-I have tested the executable on Win 7 32 bit and 64 bit.</br>
+```
+I have tested the executable on Win7 32 bit and 64 bit.</br>
