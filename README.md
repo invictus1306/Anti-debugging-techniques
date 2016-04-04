@@ -13,15 +13,15 @@ This simple tool was written in Assembler x86 Win32 API and the Anti-Debugging m
 
 For example see follow code (first case):</br>
 ```assembly
-;NtGlobalFlag - PEB!NtGlobalFlags</br>
-xor eax, eax</br>
-assume fs:nothing</br>
-mov eax, fs:[eax+30h]</br>
-mov eax, [eax+68h]</br>
-and eax, 70h</br>
-db 0ebh, 01h</br>
-db 0ffh, 085h, 0C0h</br>
-jne @Detected</br>
+;NtGlobalFlag - PEB!NtGlobalFlags
+xor eax, eax
+assume fs:nothing
+mov eax, fs:[eax+30h]
+mov eax, [eax+68h]
+and eax, 70h
+db 0ebh, 01h
+db 0ffh, 085h, 0C0h
+jne @Detected
 ```
 The NtGlobalFlag field exists at offset 0x68 in the Process Environment Block</br>
 We look at the individual instructions:</br>
